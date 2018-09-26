@@ -26,10 +26,6 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 		ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		ViewGroup.LayoutParams childLayoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		layout.setLayoutParams(layoutParams);
-		text.setLayoutParams(childLayoutParams);
-		button.setLayoutParams(childLayoutParams);
-		text.setHint("Enter text here..");
-		button.setText("SPEAK");
 		layout.setOrientation(LinearLayout.VERTICAL);
 		layout.addView(text);
 		button.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +59,10 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 		else {
 			Toast.makeText(getApplicationContext(), "Initialization failed!", Toast.LENGTH_SHORT).show();
 		}
+		});
+		delete.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Toast.makeText(getApplicationContext(), "Delete BUTTON", TOAST.LENGTH_SHORT).show();
 	}
 
 	@Override
