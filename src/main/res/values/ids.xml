@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<item name="add" type="id"/>
+	<item name="update" type="id"/>
+	<item name="delete" type="id"/>
+	<item name="viewAll" type="id"/>
+</resources>

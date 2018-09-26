@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 import android.text.InputType;
 
-public class MainActivity extends Activity
+public class MainActivity extends Activity implements View.OnClickListener
 {
 	DatabaseAdapter adapter;
 	private EditText id,fname,lname,age;
@@ -60,27 +60,33 @@ public class MainActivity extends Activity
 		layout.addView(update);
 		layout.addView(delete);
 		layout.addView(viewAll);
-		add.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Toast.makeText(getApplicationContext(), "ADD BUTTON", Toast.LENGTH_SHORT).show();
-			}
-		});
-		update.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Toast.makeText(getApplicationContext(), "update BUTTON", Toast.LENGTH_SHORT).show();
-			}
-		});
-		delete.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Toast.makeText(getApplicationContext(), "Delete BUTTON", Toast.LENGTH_SHORT).show();
-			}
-		});
-		viewAll.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Toast.makeText(getApplicationContext(), "view all BUTTON", Toast.LENGTH_SHORT).show();
-			}
-		});
+		add.setId(R.id.add);
+		update.setId(R.id.update);
+		delete.setId(R.id.delete);
+		viewAll.setId(R.id.viewAll);
+		add.setOnClickListener(this);
+		update.setOnClickListener(this);
+		delete.setOnClickListener(this);
+		viewAll.setOnClickListener(this);
 		setContentView(layout);
 		adapter = new DatabaseAdapter(this);
+	}
+
+	@Override
+	public void onClick(View view) {
+		switch(view.getId()) {
+			case R.id.add:
+				Toast.makeText(getApplicationContext(), "Add btn", Toast.LENGTH_SHORT).show();
+				break;
+			case R.id.update:
+				Toast.makeText(getApplicationContext(), "update btn", Toast.LENGTH_SHORT).show();
+				break;
+			case R.id.delete:
+				Toast.makeText(getApplicationContext(), "delete btn", Toast.LENGTH_SHORT).show();
+				break;
+			case R.id.viewAll:
+				Toast.makeText(getApplicationContext(), "viewALL btn", Toast.LENGTH_SHORT).show();
+				break;
+		}
 	}
 }
