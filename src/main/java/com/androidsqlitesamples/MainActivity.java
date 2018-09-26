@@ -2,75 +2,85 @@ package com.androidsqlitesamples;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.view.ViewGroup;
 import android.view.View;
 import android.widget.Toast;
-import java.util.Locale;
+import android.text.InputType;
 
-public class MainActivity extends Activity implements TextToSpeech.OnInitListener
+public class MainActivity extends Activity
 {
-	private TextToSpeech tts;
-	private EditText text;
-	private Button button;
+	DatabaseAdapter adapter;
+	private EditText id,fname,lname,age;
+	private Button add,update,delete, viewAll;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		LinearLayout layout = new LinearLayout(getApplicationContext());
-		text = new EditText(getApplicationContext());
-		button = new Button(getApplicationContext());
+		id = new EditText(getApplicationContext());
+		fname = new EditText(getApplicationContext());
+		lname = new EditText(getApplicationContext());
+		age = new EditText(getApplicationContext());
+		add = new Button(getApplicationContext());
+		update = new Button(getApplicationContext());
+		delete = new Button(getApplicationContext());
+		viewAll = new Button(getApplicationContext());
 		ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		ViewGroup.LayoutParams childLayoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		layout.setLayoutParams(layoutParams);
 		layout.setOrientation(LinearLayout.VERTICAL);
-		layout.addView(text);
-		button.setOnClickListener(new View.OnClickListener() {
+		id.setLayoutParams(childLayoutParams);
+		fname.setLayoutParams(childLayoutParams);
+		lname.setLayoutParams(childLayoutParams);
+		age.setLayoutParams(childLayoutParams);
+		add.setLayoutParams(childLayoutParams);
+		update.setLayoutParams(childLayoutParams);
+		delete.setLayoutParams(childLayoutParams);
+		viewAll.setLayoutParams(childLayoutParams);
+		id.setInputType(InputType.TYPE_CLASS_NUMBER);
+		fname.setInputType(InputType.TYPE_CLASS_TEXT);
+		lname.setInputType(InputType.TYPE_CLASS_TEXT);
+		age.setInputType(InputType.TYPE_CLASS_NUMBER);
+		id.setHint("ID");
+		fname.setHint("First name");
+		lname.setHint("Last name");
+		age.setHint("Age");
+		add.setText("ADD");
+		update.setText("UPDATE");
+		delete.setText("DELETE");
+		viewAll.setText("VIEW ALL");
+		layout.addView(id);
+		layout.addView(fname);
+		layout.addView(lname);
+		layout.addView(age);
+		layout.addView(add);
+		layout.addView(update);
+		layout.addView(delete);
+		layout.addView(viewAll);
+		add.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				TextSpeech();
+				Toast.makeText(getApplicationContext(), "ADD BUTTON", Toast.LENGTH_SHORT).show();
 			}
 		});
-		layout.addView(button);
-		setContentView(layout);
-		tts = new TextToSpeech(this, this);
-	}
-
-	private void TextSpeech() {
-		CharSequence textChar = text.getText();
-		tts.speak(textChar, TextToSpeech.QUEUE_FLUSH, null,"id1");
-	}
-
-	@Override
-	public void onInit(int status) {
-		if(status == TextToSpeech.SUCCESS) {
-			int result = tts.setLanguage(Locale.US);
-			//you can change the language to any built in language.
-			float i = 50;
-			if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-				Toast.makeText(getApplicationContext(), "Language IS not supported!", Toast.LENGTH_SHORT).show();
+		update.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Toast.makeText(getApplicationContext(), "update BUTTON", Toast.LENGTH_SHORT).show();
 			}
-			else {
-				TextSpeech();
-			}
-		}
-		else {
-			Toast.makeText(getApplicationContext(), "Initialization failed!", Toast.LENGTH_SHORT).show();
-		}
 		});
 		delete.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Toast.makeText(getApplicationContext(), "Delete BUTTON", TOAST.LENGTH_SHORT).show();
-	}
-
-	@Override
-	public void onDestroy() {
-		if(tts != null) {
-			tts.stop();
-			tts.shutdown();
-		}
-		super.onDestroy();
+				Toast.makeText(getApplicationContext(), "Delete BUTTON", Toast.LENGTH_SHORT).show();
+			}
+		});
+		viewAll.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Toast.makeText(getApplicationContext(), "view all BUTTON", Toast.LENGTH_SHORT).show();
+			}
+		});
+		setContentView(layout);
+		adapter = new DatabaseAdapter(this);
 	}
 }
